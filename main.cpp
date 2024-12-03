@@ -1,6 +1,6 @@
 #include "graph.h"
+
 int main() {
-    graph G;
-    buildGraph_103022300088(G);
+    cout << "Hello world!" << endl;
     return 0;
 }
