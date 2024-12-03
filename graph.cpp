@@ -153,3 +153,38 @@ void deleteEdge(graph &G, string sourceVertexID, string destVertexID) {
     }
     cout << "Jalur dari " << sourceVertexID << " ke " << destVertexID << " telah dihapus" << endl;
 }
+
+adrGedung findVertex(graph G, string vertexID){
+/*
+{I.S. Terdefinisi Graph G, dan string vertexID
+F.S. Mengembalikan pointer vertex jika ditemukan dan NULL jika tidak ditemukan}
+*/
+    adrGedung currentVertex = firstVertex(G);
+    while (currentVertex != NULL) {
+        if (infoVertex(currentVertex) == vertexID) {
+            return currentVertex;
+        }
+        currentVertex = nextVertex(currentVertex);
+    }
+    return NULL;
+}
+adrJalur findEdge(graph G, string sourceVertexID, string destVertexID){
+/*
+[I.S. Terdefinisi graph G, string sourceVertexID, dan string destVertexID
+F.S. Mengembalikan pointer edge jika ditemukan dan NULL jika tidak ditemukan}
+*/
+
+    adrGedung sourceVertex = findVertex(G, sourceVertexID);
+    if (sourceVertex == NULL) {
+        return NULL;
+    }
+
+    adrJalur currentEdge = firstEdge(sourceVertex);
+    while (currentEdge != NULL) {
+        if (destvertexID(currentEdge) == destVertexID) {
+            return currentEdge;
+        }
+        currentEdge = nextEdge(currentEdge);
+    }
+    return NULL;
+}
