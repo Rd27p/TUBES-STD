@@ -160,7 +160,7 @@ adrGedung findVertex(graph G, string vertexID){
 F.S. Mengembalikan pointer vertex jika ditemukan dan NULL jika tidak ditemukan}
 */
     adrGedung currentVertex = firstVertex(G);
-    while (currentVertex != NULL) {
+    while (currentVertex != NULL) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
         if (infoVertex(currentVertex) == vertexID) {
             return currentVertex;
         }
@@ -181,7 +181,7 @@ F.S. Mengembalikan pointer edge jika ditemukan dan NULL jika tidak ditemukan}
 
     adrJalur currentEdge = firstEdge(sourceVertex);
     while (currentEdge != NULL) {
-        if (destvertexID(currentEdge) == destVertexID) {
+        if (destvertexID(currentEdge) == destVertexID) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
             return currentEdge;
         }
         currentEdge = nextEdge(currentEdge);
