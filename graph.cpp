@@ -76,8 +76,6 @@ void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight) {
     }
 }
 
-
-
 int shortestPathSearch(graph &G, string startVertexID, string endVertexID) {
     //mengembalikan jalur terpendek antara 1 gedung dengan gedung lainnya
 }
