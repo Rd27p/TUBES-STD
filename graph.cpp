@@ -181,12 +181,32 @@ void deleteEdge(graph &G, string sourceVertexID, string destVertexID) {
 
 // yang belum dikerjakan
 int shortestPath(graph G, string startID, string endID){
-    
+    /* I.S. Terdefinisi Graph G
+    F.S. Mengembalikan nilai yang merupakan jalur yang terpendek yang ada di graph */
 }
-int longestPath(graph G, string startID, string endID);
-int alternativePath(graph G, string startID, string endID);
-int calculatePathTaken(graph G);
-void buildGraph(graph &G);
-void showVertex();
-void showEdge();
-void showGraph();
+int longestPath(graph G, string startID, string endID){
+    // Mengembalikan nilai yang merupakan jalur yang terpanjang yang ada di graph
+}
+int alternativePath(graph G, string startID, string endID){
+    // Mengembalikan nilai yang merupakan jalur alternative yang ada di graph
+}
+int calculatePathTaken(graph G){
+    // Mengembalikan nilai yang merupakan jumlah jalur yang ada di graph
+}
+void buildGraph(graph &G){
+    /* I.S. Terdapat file yang berisi data-data gedung dan jalur yang terhubung
+    F.S. Graph G terbentuk */
+
+}
+void showVertex(){
+    /* I.S. Terdefinisi Graph G
+    F.S. Menampilkan semua nama gedung / vertex yang ada di graph */
+}
+void showEdge(){
+    /* I.S. Terdefinisi Graph G
+    F.S. Menampilkan semua jalur yang ada di graph */
+}
+void showGraph(){
+    /* I.S. Terdefinisi Graph G
+    F.S. Menampilkan semua data-data gedung dan jalur yang ada di graph */
+}
