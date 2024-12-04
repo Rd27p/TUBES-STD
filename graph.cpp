@@ -76,18 +76,6 @@ void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight) {
     }
 }
 
-int shortestPathSearch(graph &G, string startVertexID, string endVertexID) {
-    //mengembalikan jalur terpendek antara 1 gedung dengan gedung lainnya
-}
-
-int longestPathSearch(graph &G, string startVertexID, string endVertexID) {
-    //mengembalikan jalur terpanjang antara 1 gedung dengan gedung lainnya
-}
-
-int alternativePathSearch(graph &G, string startVertexID, string endVertexID) {
-    //mengembalikan jalur alternatif antara 1 gedung dengan gedung lainnya bila ada bencana
-}
-
 void deleteVertex(graph &G, string vertexID) {
     /* I.S. Terdefinisi Graph G, adrNode P_NODE, adrEdge P_EDGE
     F.S. Procedure menghapus nama gedung / vertex dari graph */

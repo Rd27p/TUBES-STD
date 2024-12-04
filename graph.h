@@ -33,8 +33,8 @@ struct graph {
 void menu();
 adrGedung createVertex(string newVertex);
 adrJalur createEdge(string destVertexID, int weight);
-void addVertex(graph &G, string &newVertexID);
-void addEdge(graph &G, string &sourceVertexID, string &destVertexID, int weight);
+void addVertex(graph &G, string newVertexID);
+void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight);
 adrGedung findVertex(graph G, string vertexID);
 adrJalur findEdge(graph G, string sourceVertexID, string destVertexID);
 int shortestPathSearch(graph G, string startVertexID, string endVertexID);
