@@ -1,7 +1,7 @@
 #include "graph.h"
 
 int main() {
-    graph G = {NULL}; // Initialize an empty graph
+    graph G = {NULL};
     int choice;
 
     do {
@@ -15,6 +15,7 @@ int main() {
             cout << "Masukkan ID vertex: ";
             cin >> newVertexID;
             addVertex(G, newVertexID);
+            break;
         }
         case 2: {
             string source, destination;
@@ -26,12 +27,14 @@ int main() {
             cout << "Masukkan bobot edge: ";
             cin >> weight;
             addEdge(G, source, destination, weight);
+            break;
         }
         case 3: {
             string vertexID;
             cout << "Masukkan ID vertex yang akan dihapus: ";
             cin >> vertexID;
             deleteVertex(G, vertexID);
+            break;
         }
         case 4: {
             string source, destination;
@@ -40,9 +43,11 @@ int main() {
             cout << "Masukkan ID vertex tujuan: ";
             cin >> destination;
             deleteEdge(G, source, destination);
+            break;
         }
         case 8:
             cout << "Keluar dari program." << endl;
+            break;
         default:
             cout << "Pilihan tidak valid. Coba lagi." << endl;
         }

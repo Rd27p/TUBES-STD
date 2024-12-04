@@ -35,6 +35,10 @@ adrJalur createEdge(string destVertexID, int weight) {
     return E;
 }
 
+void initGraph(graph &G){
+    firstVertex(G) = NULL;
+}
+
 void addVertex(graph &G, string newVertexID) {
     /* I.S. Isi dari vertex mungkin saja kosong, parameter newVertexID sudah siap dimasukkan
     F.S. Vertex baru berhasil ditambahkan */
@@ -74,6 +78,41 @@ void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight) {
         }
         nextEdge(tempEdge) = newEdge;
     }
+}
+
+adrGedung findVertex(graph G, string vertexID){
+/*
+{I.S. Terdefinisi Graph G, dan string vertexID
+F.S. Mengembalikan pointer vertex jika ditemukan dan NULL jika tidak ditemukan}
+*/
+    adrGedung currentVertex = firstVertex(G);
+    while (currentVertex != NULL) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
+        if (infoVertex(currentVertex) == vertexID) {
+            return currentVertex;
+        }
+        currentVertex = nextVertex(currentVertex);
+    }
+    return NULL;
+}
+adrJalur findEdge(graph G, string sourceVertexID, string destVertexID){
+/*
+[I.S. Terdefinisi graph G, string sourceVertexID, dan string destVertexID
+F.S. Mengembalikan pointer edge jika ditemukan dan NULL jika tidak ditemukan}
+*/
+
+    adrGedung sourceVertex = findVertex(G, sourceVertexID);
+    if (sourceVertex == NULL) {
+        return NULL;
+    }
+
+    adrJalur currentEdge = firstEdge(sourceVertex);
+    while (currentEdge != NULL) {
+        if (destvertexID(currentEdge) == destVertexID) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
+            return currentEdge;
+        }
+        currentEdge = nextEdge(currentEdge);
+    }
+    return NULL;
 }
 
 void deleteVertex(graph &G, string vertexID) {
@@ -140,37 +179,14 @@ void deleteEdge(graph &G, string sourceVertexID, string destVertexID) {
     cout << "Jalur dari " << sourceVertexID << " ke " << destVertexID << " telah dihapus" << endl;
 }
 
-adrGedung findVertex(graph G, string vertexID){
-/*
-{I.S. Terdefinisi Graph G, dan string vertexID
-F.S. Mengembalikan pointer vertex jika ditemukan dan NULL jika tidak ditemukan}
-*/
-    adrGedung currentVertex = firstVertex(G);
-    while (currentVertex != NULL) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
-        if (infoVertex(currentVertex) == vertexID) {
-            return currentVertex;
-        }
-        currentVertex = nextVertex(currentVertex);
-    }
-    return NULL;
+// yang belum dikerjakan
+int shortestPath(graph G, string startID, string endID){
+    
 }
-adrJalur findEdge(graph G, string sourceVertexID, string destVertexID){
-/*
-[I.S. Terdefinisi graph G, string sourceVertexID, dan string destVertexID
-F.S. Mengembalikan pointer edge jika ditemukan dan NULL jika tidak ditemukan}
-*/
-
-    adrGedung sourceVertex = findVertex(G, sourceVertexID);
-    if (sourceVertex == NULL) {
-        return NULL;
-    }
-
-    adrJalur currentEdge = firstEdge(sourceVertex);
-    while (currentEdge != NULL) {
-        if (destvertexID(currentEdge) == destVertexID) { //Melakukan pengecekan dari vertex ke-1 hingga akhir
-            return currentEdge;
-        }
-        currentEdge = nextEdge(currentEdge);
-    }
-    return NULL;
-}
+int longestPath(graph G, string startID, string endID);
+int alternativePath(graph G, string startID, string endID);
+int calculatePathTaken(graph G);
+void buildGraph(graph &G);
+void showVertex();
+void showEdge();
+void showGraph();
