@@ -189,6 +189,7 @@ int longestPath(graph G, string startID, string endID){
 }
 int alternativePath(graph G, string startID, string endID){
     // Mengembalikan nilai yang merupakan jalur alternative yang ada di graph
+    // gunakan shortest dan delete sementara gedung
 }
 int calculatePathTaken(graph G){
     // Mengembalikan nilai yang merupakan jumlah jalur yang ada di graph

@@ -4,6 +4,8 @@ int main() {
     graph G = {NULL};
     int choice;
 
+    initGraph(G);
+   
     do {
         menu();
         cout << "Masukkan pilihan: ";
@@ -12,9 +14,14 @@ int main() {
         switch (choice) {
         case 1: {
             string newVertexID;
-            cout << "Masukkan ID vertex: ";
-            cin >> newVertexID;
-            addVertex(G, newVertexID);
+            int n;
+            cout << "Masukkan jumlah gedung yang akan ditambah: ";
+            cin >> n;
+            for (int i = 0; i < n; i++) {
+                cout << "Masukkan ID vertex: ";
+                cin >> newVertexID;
+                addVertex(G, newVertexID);
+            }
             break;
         }
         case 2: {
