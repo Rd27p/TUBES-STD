@@ -134,7 +134,7 @@ void deleteVertex(graph &G, string vertexID) {
     adrJalur currentEdge = firstEdge(currentVertex);
     while (currentEdge != NULL) {
         adrJalur nextEdgeToDelete = nextEdge(currentEdge);
-        delete currentEdge;
+        // delete first atau last.
         currentEdge = nextEdgeToDelete;
     }
 
