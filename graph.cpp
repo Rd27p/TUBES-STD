@@ -118,65 +118,76 @@ F.S. Mengembalikan pointer edge jika ditemukan dan NULL jika tidak ditemukan}
 void deleteVertex(graph &G, string vertexID) {
     /* I.S. Terdefinisi Graph G, adrNode P_NODE, adrEdge P_EDGE
     F.S. Procedure menghapus nama gedung / vertex dari graph */
-    adrGedung prevVertex = NULL;
-    adrGedung currentVertex = firstVertex(G);
+    adrGedung TEMP = firstVertex(G);
+    adrGedung prev = NULL;
 
-    while (currentVertex != NULL && infoVertex(currentVertex) != vertexID) {
-        prevVertex = currentVertex;
-        currentVertex = nextVertex(currentVertex);
+    while (TEMP != NULL && infoVertex(TEMP) != vertexID) {
+        prev = TEMP;
+        TEMP = nextVertex(TEMP);
     }
 
-    if (currentVertex == NULL) {
-        cout << "Nama Gedung tidak ditemukan" << endl;
+    if (TEMP == NULL) {
+        cout << "Vertex tidak ada." << endl;
         return;
     }
 
-    adrJalur currentEdge = firstEdge(currentVertex);
-    while (currentEdge != NULL) {
-        adrJalur nextEdgeToDelete = nextEdge(currentEdge);
-        // delete first atau last.
-        currentEdge = nextEdgeToDelete;
+    adrGedung tempVertex = firstVertex(G);
+    while (tempVertex != NULL) {
+        deleteEdge(G, infoVertex(tempVertex), vertexID);
+        tempVertex = nextVertex(tempVertex);
     }
 
-    if (prevVertex == NULL) {
-        firstVertex(G) = nextVertex(currentVertex);
+    // Hapus vertex dari graph
+    if (prev == NULL) {
+        firstVertex(G) = nextVertex(TEMP);
     } else {
-        nextVertex(prevVertex) = nextVertex(currentVertex);
+        nextVertex(prev) = nextVertex(TEMP);
     }
-    cout << "Gedung " << vertexID << " telah dihapus" << endl;
+
+    // Hapus semua edge dari vertex
+    adrJalur tempEdge;
+    while (firstEdge(TEMP) != NULL) {
+        tempEdge = firstEdge(TEMP);
+        firstEdge(TEMP) = nextEdge(tempEdge);
+        delete tempEdge;
+    }
+
+    TEMP = NULL;
+    cout << "Vertex " << vertexID << " berhasil dihapus." << endl;
 }
 
 void deleteEdge(graph &G, string sourceVertexID, string destVertexID) {
     /* I.S. Terdefinisi Graph G, adrNode P_NODE, adrEdge P_EDGE
     F.S. Procedure menghapus jalur atau edge dari graph */
-    adrGedung sourceVertex = firstVertex(G);
-    while (sourceVertex != NULL && infoVertex(sourceVertex) != sourceVertexID) {
-        sourceVertex = nextVertex(sourceVertex);
-    }
-
+    adrGedung sourceVertex = findVertex(G, sourceVertexID);
     if (sourceVertex == NULL) {
-        cout << "Vertex awal tidak ditemukan" << endl;
+        cout << "Vertex sumber tidak ada." << endl;
         return;
     }
 
-    adrJalur prevEdge = NULL;
-    adrJalur currentEdge = firstEdge(sourceVertex);
-    while (currentEdge != NULL && destvertexID(currentEdge) != destVertexID) {
-        prevEdge = currentEdge;
-        currentEdge = nextEdge(currentEdge);
+    adrJalur TEMP = firstEdge(sourceVertex);
+    adrJalur prev = NULL;
+    
+    // mencari edge yang akan dihapus
+    while (TEMP != NULL && destvertexID(TEMP) != destVertexID) {
+        prev = TEMP;
+        TEMP = nextEdge(TEMP);
     }
 
-    if (currentEdge == NULL) {
-        cout << "Edge tidak ditemukan" << endl;
+    if (TEMP == NULL) {
+        cout << "Edge tidak ada." << endl;
         return;
     }
 
-    if (prevEdge == NULL) {
-        firstEdge(sourceVertex) = nextEdge(currentEdge);
+    // hapus edge
+    if (prev == NULL) {
+        firstEdge(sourceVertex) = nextEdge(TEMP);
     } else {
-        nextEdge(prevEdge) = nextEdge(currentEdge);
+        nextEdge(prev) = nextEdge(TEMP);
     }
-    cout << "Jalur dari " << sourceVertexID << " ke " << destVertexID << " telah dihapus" << endl;
+
+    TEMP = NULL;
+    cout << "Edge dari " << sourceVertexID << " ke " << destVertexID << " berhasil dihapus." << endl;
 }
 
 // yang belum dikerjakan
