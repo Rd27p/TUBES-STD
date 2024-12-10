@@ -208,17 +208,67 @@ int calculatePathTaken(graph G){
 void buildGraph(graph &G){
     /* I.S. Terdapat file yang berisi data-data gedung dan jalur yang terhubung
     F.S. Graph G terbentuk */
-
+    initGraph(G);
 }
 void showVertex(){
     /* I.S. Terdefinisi Graph G
     F.S. Menampilkan semua nama gedung / vertex yang ada di graph */
+    adrGedung TEMP = firstVertex(G);
+
+    // mengecek jika graph kosong
+    if (TEMP == NULL) {
+        cout << "Graph kosong." << endl;
+        return;
+    }
+    cout << "Daftar Gedung:" << endl;
+    while (TEMP != NULL) {
+        cout << infoVertex(TEMP) << ", ";
+        TEMP = nextVertex(TEMP);
+    }
 }
 void showEdge(){
     /* I.S. Terdefinisi Graph G
     F.S. Menampilkan semua jalur yang ada di graph */
+    adrGedung TEMP = firstVertex(G);
+
+    // mengecek jika graph kosong
+    if (TEMP == NULL) {
+        cout << "Graph kosong." << endl;
+        return;
+    }
+    cout << "Daftar Jalur:" << endl;
+    while (TEMP != NULL) {
+        adrJalur TEMP = firstEdge(TEMP);
+        while (TEMP != NULL) {
+            cout << Vertex(TEMP) << " ke " << destvertexID(TEMP) << " berbobot " << edgeWeight(TEMP) << endl;
+            TEMP = nextEdge(TEMP);
+        }
+        TEMP = nextVertex(TEMP);
+    }
 }
 void showGraph(){
     /* I.S. Terdefinisi Graph G
     F.S. Menampilkan semua data-data gedung dan jalur yang ada di graph */
+    adrGedung TEMP = firstVertex(G);
+
+    // mengecek jika graph kosong
+    if (TEMP == NULL) {
+        cout << "Graph kosong." << endl;
+        return;
+    }
+    cout << "Graph:" << endl;
+    while (TEMP != NULL) {
+        cout << "Gedung: " << infoVertex(TEMP) << endl;
+        adrJalur TEMP_EDGE = firstEdge(TEMP);
+        if (TEMP_EDGE == NULL) {
+            cout << "Tidak ada jalur." << endl;
+        } else {
+            cout << "Jalur:" << endl;
+            while (TEMP_EDGE != NULL) {
+                cout << " ke " << destvertexID(TEMP_EDGE) << " berbobot " << edgeWeight(TEMP_EDGE) << endl;
+                TEMP_EDGE = nextEdge(TEMP_EDGE);
+            }
+        }
+        TEMP = nextVertex(TEMP);
+    }
 }
