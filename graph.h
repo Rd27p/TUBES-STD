@@ -9,10 +9,9 @@
 #define destvertexID(E) E->destvertexID
 #define nextEdge(E) E->nextEdge
 #define edgeWeight(E) E->edgeWeight
-
 using namespace std;
 
-
+const int MAX_BUILDINGS = 20;
 typedef struct gedung *adrGedung;
 typedef struct jalur *adrJalur;
 
@@ -28,7 +27,6 @@ struct jalur {
     adrJalur nextEdge;
 };
 
-
 struct graph {
     adrGedung firstVertex;
 };
@@ -43,16 +41,12 @@ adrGedung findVertex(graph G, string vertexID);
 adrJalur findEdge(graph G, string sourceVertexID, string destVertexID);
 void deleteVertex(graph &G, string vertexID);
 void deleteEdge(graph &G, string sourceVertexID, string destVertexID);
-
-// yang belum dikerjakan
 int shortestPath(graph G, string startID, string endID);
 int longestPath(graph G, string startID, string endID);
 int alternativePath(graph G, string startID, string endID);
-int calculatePathTaken(graph G);
 void buildGraph(graph &G);
-void showVertex();
-void showEdge();
-void showGraph();
-
-
+void showVertex(graph G);
+void showEdge(graph G);
+void showGraph(graph G);
+void buildGraph(graph &G);
 #endif // GRAPH_H_INCLUDED

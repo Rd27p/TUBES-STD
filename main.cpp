@@ -1,11 +1,14 @@
 #include "graph.h"
 
 int main() {
-    graph G = {NULL};
-    int choice;
-
+    graph G;
+    int choice = 0;
     initGraph(G);
-   
+    buildGraph(G);
+
+    string vertexIDs[MAX_BUILDINGS];
+    int n = 0;
+
     do {
         menu();
         cout << "Masukkan pilihan: ";
@@ -13,14 +16,19 @@ int main() {
 
         switch (choice) {
         case 1: {
-            string newVertexID;
-            int n;
-            cout << "Masukkan jumlah gedung yang akan ditambah: ";
+            cout << "Masukkan jumlah gedung yang akan ditambah (max 100): ";
             cin >> n;
+
+            if (n <= 0 || n > MAX_BUILDINGS) {
+                cout << "Jumlah gedung harus lebih dari 0 dan tidak lebih dari " << MAX_BUILDINGS << "!" << endl;
+                break;
+            }
+
+            cout << "Masukkan ID gedung (pisahkan dengan spasi): ";
             for (int i = 0; i < n; i++) {
-                cout << "Masukkan ID vertex: ";
-                cin >> newVertexID;
-                addVertex(G, newVertexID);
+                cin >> vertexIDs[i];
+                addVertex(G, vertexIDs[i]);
+                cout << "Vertex '" << vertexIDs[i] << "' berhasil ditambahkan." << endl;
             }
             break;
         }
@@ -37,28 +45,71 @@ int main() {
             break;
         }
         case 3: {
-            string vertexID;
-            cout << "Masukkan ID vertex yang akan dihapus: ";
-            cin >> vertexID;
-            deleteVertex(G, vertexID);
+            string vertexToDelete;
+            cout << "Masukkan nama gedung yang akan dihapus: ";
+            cin >> vertexToDelete;
+            deleteVertex(G, vertexToDelete);
             break;
         }
         case 4: {
             string source, destination;
-            cout << "Masukkan ID vertex sumber: ";
-            cin >> source;
-            cout << "Masukkan ID vertex tujuan: ";
-            cin >> destination;
+            cout << "Masukkan nama gedung sumber dan tujuan yang akan dihapus: ";
+            cin >> source >> destination;
             deleteEdge(G, source, destination);
             break;
         }
+        case 5: {
+            string start, end;
+            cout << "Masukkan ID gedung awal: ";
+            cin >> start;
+            cout << "Masukkan ID gedung tujuan: ";
+            cin >> end;
+            int shortest = shortestPath(G, start, end);
+            if (shortest != -1) {
+                cout << "Jalur terpendek memiliki jarak: " << shortest << endl;
+            }
+            break;
+        }
+        case 6: {
+            string start, end;
+            cout << "Masukkan ID gedung awal: ";
+            cin >> start;
+            cout << "Masukkan ID gedung tujuan: ";
+            cin >> end;
+            int longest = longestPath(G, start, end);
+            if (longest != -1) {
+                cout << "Jalur terpanjang memiliki jarak: " << longest << endl;
+            }
+            break;
+        }
+        case 7: {
+            string start, end;
+            cout << "Masukkan ID gedung awal: ";
+            cin >> start;
+            cout << "Masukkan ID gedung tujuan: ";
+            cin >> end;
+            int alternative = alternativePath(G, start, end);
+            if (alternative != -1) {
+                cout << "Jalur alternatif memiliki jarak: " << alternative << endl;
+            }
+            break;
+        }
         case 8:
-            cout << "Keluar dari program." << endl;
+            showVertex(G);
+            break;
+        case 9:
+            showEdge(G);
+            break;
+        case 10:
+            showGraph(G);
+            break;
+        case 11:
+            cout << "Terima kasih! Program selesai." << endl;
             break;
         default:
-            cout << "Pilihan tidak valid. Coba lagi." << endl;
+            cout << "Pilihan tidak valid!" << endl;
         }
-    } while (choice != 8);
+    } while (choice != 11);
 
     return 0;
 }
