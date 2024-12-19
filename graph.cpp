@@ -8,11 +8,10 @@ void menu() {
     cout << "4. Hapus Koneksi Antar Gedung" << endl;
     cout << "5. Cari Jalur Terpendek" << endl;
     cout << "6. Cari Jalur Terpanjang" << endl;
-    cout << "7. Cari Jalur Altern atif" << endl;
-    cout << "8. Lihat Gedung" << endl;
-    cout << "9. Lihat Jalur" << endl;
-    cout << "10. Lihat Graph" << endl;
-    cout << "11. Keluar" << endl;
+    cout << "7. Lihat Gedung" << endl;
+    cout << "8. Lihat Jalur" << endl;
+    cout << "9. Lihat Graph" << endl;
+    cout << "10. Keluar" << endl;
     cout << "===========================================" << endl;
 }
 

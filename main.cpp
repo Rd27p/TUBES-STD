@@ -82,28 +82,16 @@ int main() {
             }
             break;
         }
-        case 7: {
-            string start, end;
-            cout << "Masukkan ID gedung awal: ";
-            cin >> start;
-            cout << "Masukkan ID gedung tujuan: ";
-            cin >> end;
-            int alternative = alternativePath(G, start, end);
-            if (alternative != -1) {
-                cout << "Jalur alternatif memiliki jarak: " << alternative << endl;
-            }
-            break;
-        }
-        case 8:
+        case 7:
             showVertex(G);
             break;
-        case 9:
+        case 8:
             showEdge(G);
             break;
-        case 10:
+        case 9:
             showGraph(G);
             break;
-        case 11:
+        case 10:
             cout << "Terima kasih! Program selesai." << endl;
             break;
         default:
