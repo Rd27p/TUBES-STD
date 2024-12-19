@@ -363,10 +363,6 @@ int longestPath(graph G, string startID, string endID) {
     return distance[endIdx];
 }
 
-int alternativePath(graph G, string startID, string endID) {
-    //???
-}
-
 void showVertex(graph G) {
     /* I.S. -
         F.S. nama-nama gedung yang ada di Graph G dapat terlihat*/
