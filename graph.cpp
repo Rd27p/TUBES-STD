@@ -35,12 +35,12 @@ adrJalur createEdge(string destVertexID, int weight) {
 
 void initGraph(graph &G) {
     /* I.S. -
-        F.S. firstVertex telah terisi nilai NIL*/
+        F.S. firstVertex telah terisi nilai NULL*/
     firstVertex(G) = NULL;
 }
 
 void addVertex(graph &G, string newVertexID) {
-    /* I.S. Graph G mungkin kosong atau sudah berisi beberapa Gedung
+    /* I.S. Graph G mungkin saja kosong atau sudah berisi beberapa Gedung
         F.S. Sebuah Gedung baru dengan ID newVertexID telah ditambahkan ke dalam Graph G */
     adrGedung newVertex = createVertex(newVertexID);
     if (firstVertex(G) == NULL) {
@@ -55,7 +55,7 @@ void addVertex(graph &G, string newVertexID) {
 }
 
 void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight) {
-    /* I.S. Graph G mungkin kosong atau sudah berisi beberapa Gedung. sourceVertexID ke destVertexID yang akan ditambahkan
+    /* I.S. Graph G mungkin saja kosong atau sudah berisi beberapa Gedung. sourceVertexID ke destVertexID yang akan ditambahkan
         F.S. Sebuah jalur dengan bobot (weight) telah ditambahkan dari sourceVertexID ke destVertexID */
     adrGedung sourceVertex = findVertex(G, sourceVertexID);
     if (sourceVertex == NULL) {
@@ -64,6 +64,7 @@ void addEdge(graph &G, string sourceVertexID, string destVertexID, int weight) {
     }
 
     adrJalur newEdge = createEdge(destVertexID, weight);
+
     nextEdge(newEdge) = firstEdge(sourceVertex);
     firstEdge(sourceVertex) = newEdge;
 
@@ -180,6 +181,7 @@ void deleteEdge(graph &G, string sourceVertexID, string destVertexID) {
 }
 
 int shortestPath(graph G, string startID, string endID) {
+    /* Mengembalikan jalur terependek dari satu gedung ke gedungyang lain */
     adrGedung startVertex = findVertex(G, startID);
     adrGedung endVertex = findVertex(G, endID);
 
@@ -209,7 +211,7 @@ int shortestPath(graph G, string startID, string endID) {
     }
 
     if (startIdx == -1 || endIdx == -1) {
-        cout << "Error: Start or end vertex not found in the graph." << endl;
+        cout << "Error: Gedung Asal atau Gedung tujuan tidak ditemukan dalam graph" << endl;
         return -1;
     }
 
@@ -250,11 +252,11 @@ int shortestPath(graph G, string startID, string endID) {
     }
 
     if (distance[endIdx] == INT_MAX) {
-        cout << "No path from " << startID << " to " << endID << "." << endl;
+        cout << "Tidak ada jalur dari " << startID << " menuju " << endID << "." << endl;
         return -1;
     }
 
-    cout << "Shortest Path from " << startID << " to " << endID << ": ";
+    cout << "Jalur Terpendek dari gedung " << startID << " menuju " << endID << " adalah: ";
     int path[MAX_VERTICES];
     int pathIdx = 0;
     for (int idx = endIdx; idx != -1; idx = predecessor[idx]) {
@@ -262,11 +264,9 @@ int shortestPath(graph G, string startID, string endID) {
     }
     for (int i = pathIdx - 1; i >= 0; --i) {
         cout << vertexArray[path[i]]->infoVertex;
-        if (i > 0) cout << " -> ";
+        if (i > 0) cout << " >> ";
     }
     cout << endl;
-
-    cout << "Total distance: " << distance[endIdx] << endl;
     return distance[endIdx];
 }
 
@@ -275,7 +275,7 @@ int longestPath(graph G, string startID, string endID) {
     adrGedung endVertex = findVertex(G, endID);
 
     if (startVertex == NULL || endVertex == NULL) {
-        cout << "Error: Start or end vertex not found." << endl;
+        cout << "Error: Gedung asal atau Gedung tujuan tidak ditemukan" << endl;
         return -1;
     }
 
@@ -300,7 +300,7 @@ int longestPath(graph G, string startID, string endID) {
     }
 
     if (startIdx == -1 || endIdx == -1) {
-        cout << "Error: Start or end vertex not found in the graph." << endl;
+        cout << "Error: Gedung asal atau Gedung tujuan tidak ditemukan" << endl;
         return -1;
     }
 
@@ -341,12 +341,12 @@ int longestPath(graph G, string startID, string endID) {
     }
 
     if (distance[endIdx] == INT_MIN) {
-        cout << "No path from " << startID << " to " << endID << "." << endl;
+        cout << "Tidak ada jalur dari " << startID << " menuju " << endID << "." << endl;
         return -1;
     }
 
 
-    cout << "Longest Path from " << startID << " to " << endID << ": ";
+    cout << "Jalur terpanjang dari gedung " << startID << " menuju " << endID << ": ";
     int path[MAX_VERTICES];
     int pathIdx = 0;
     for (int idx = endIdx; idx != -1; idx = predecessor[idx]) {
@@ -354,11 +354,9 @@ int longestPath(graph G, string startID, string endID) {
     }
     for (int i = pathIdx - 1; i >= 0; --i) {
         cout << vertexArray[path[i]]->infoVertex;
-        if (i > 0) cout << " -> ";
+        if (i > 0) cout << " >> ";
     }
     cout << endl;
-
-    cout << "Total distance: " << distance[endIdx] << endl;
     return distance[endIdx];
 }
 

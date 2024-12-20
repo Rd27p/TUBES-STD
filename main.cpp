@@ -66,7 +66,7 @@ int main() {
             cin >> end;
             int shortest = shortestPath(G, start, end);
             if (shortest != -1) {
-                cout << "Jalur terpendek memiliki jarak: " << shortest << endl;
+                cout << "Dengan total jarak: " << shortest << " Meter " << endl;
             }
             break;
         }
@@ -78,7 +78,7 @@ int main() {
             cin >> end;
             int longest = longestPath(G, start, end);
             if (longest != -1) {
-                cout << "Jalur terpanjang memiliki jarak: " << longest << endl;
+                cout << "Dengan total jarak: " << longest << " Meter " << endl;
             }
             break;
         }
