@@ -43,9 +43,9 @@ void deleteVertex(graph &G, string vertexID);
 void deleteEdge(graph &G, string sourceVertexID, string destVertexID);
 int shortestPath(graph G, string startID, string endID);
 int longestPath(graph G, string startID, string endID);
+void alternativePath(graph G, string startID, string endID, string avoidID);
 void buildGraph(graph &G);
-void showVertex(graph G);
-void showEdge(graph G);
+void showVertexEdge(graph G);
 void showGraph(graph G);
 void buildGraph(graph &G);
 #endif // GRAPH_H_INCLUDED

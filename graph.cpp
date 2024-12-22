@@ -8,8 +8,8 @@ void menu() {
     cout << "4. Hapus Koneksi Antar Gedung" << endl;
     cout << "5. Cari Jalur Terpendek" << endl;
     cout << "6. Cari Jalur Terpanjang" << endl;
-    cout << "7. Lihat Gedung" << endl;
-    cout << "8. Lihat Jalur" << endl;
+    cout << "7. Cari Jalur Alternatif" << endl;
+    cout << "8. Lihat Gedung dan Jalur yang ada" << endl;
     cout << "9. Lihat Graph" << endl;
     cout << "10. Keluar" << endl;
     cout << "===========================================" << endl;
@@ -360,26 +360,121 @@ int longestPath(graph G, string startID, string endID) {
     return distance[endIdx];
 }
 
-void showVertex(graph G) {
-    /* I.S. -
-        F.S. nama-nama gedung yang ada di Graph G dapat terlihat*/
+void alternativePath(graph G, string startID, string endID, string avoidID) {
+    /* I.S. Graph G terdefinisi, startID, endID, dan avoidID diberikan.
+    F.S. Menampilkan jalur alternatif dari startID ke endID dengan menghindari avoidID. */
+    adrGedung startVertex = findVertex(G, startID);
+    adrGedung endVertex = findVertex(G, endID);
+
+    if (startVertex == NULL || endVertex == NULL) {
+        cout << "Error: Gedung asal atau tujuan tidak ditemukan." << endl;
+        return;
+    }
+
+    const int MAX_VERTICES = MAX_BUILDINGS;
+    int distance[MAX_VERTICES];
+    bool visited[MAX_VERTICES];
+    adrGedung vertexArray[MAX_VERTICES];
+    int predecessor[MAX_VERTICES];
+    int startIdx = -1, endIdx = -1, avoidIdx = -1;
+
+    int vertexCount = 0;
+    adrGedung current = firstVertex(G);
+    while (current != NULL) {
+        vertexArray[vertexCount] = current;
+        distance[vertexCount] = INT_MAX;
+        visited[vertexCount] = false;
+        predecessor[vertexCount] = -1;
+        if (current == startVertex) startIdx = vertexCount;
+        if (current == endVertex) endIdx = vertexCount;
+        if (infoVertex(current) == avoidID) avoidIdx = vertexCount;
+        vertexCount++;
+        current = nextVertex(current);
+    }
+
+    if (startIdx == -1 || endIdx == -1) {
+        cout << "Error: Gedung asal atau tujuan tidak ditemukan dalam graph." << endl;
+        return;
+    }
+
+    distance[startIdx] = 0;
+
+    for (int i = 0; i < vertexCount; ++i) {
+        int minDistance = INT_MAX;
+        int currentIdx = -1;
+
+        for (int j = 0; j < vertexCount; ++j) {
+            if (!visited[j] && distance[j] < minDistance) {
+                minDistance = distance[j];
+                currentIdx = j;
+            }
+        }
+
+        if (currentIdx == -1) break;
+        visited[currentIdx] = true;
+
+        // Skip the avoid vertex
+        if (currentIdx == avoidIdx) continue;
+
+        adrJalur edge = firstEdge(vertexArray[currentIdx]);
+        while (edge != NULL) {
+            int neighborIdx = -1;
+            for (int k = 0; k < vertexCount; ++k) {
+                if (vertexArray[k]->infoVertex == destvertexID(edge)) {
+                    neighborIdx = k;
+                    break;
+                }
+            }
+            if (neighborIdx != -1 && !visited[neighborIdx] && neighborIdx != avoidIdx) {
+                int newDistance = distance[currentIdx] + edgeWeight(edge);
+                if (newDistance < distance[neighborIdx]) {
+                    distance[neighborIdx] = newDistance;
+                    predecessor[neighborIdx] = currentIdx;
+                }
+            }
+            edge = nextEdge(edge);
+        }
+    }
+
+    if (distance[endIdx] == INT_MAX) {
+        cout << "Tidak ada jalur alternatif dari " << startID << " menuju " << endID << " yang menghindari " << avoidID << "." << endl;
+        return;
+    }
+
+    cout << "Jalur alternatif terpendek dari gedung " << startID << " menuju " << endID << " (menghindari " << avoidID << ") adalah: ";
+    int path[MAX_VERTICES];
+    int pathIdx = 0;
+    for (int idx = endIdx; idx != -1; idx = predecessor[idx]) {
+        path[pathIdx++] = idx;
+    }
+    for (int i = pathIdx - 1; i >= 0; --i) {
+        cout << vertexArray[path[i]]->infoVertex;
+        if (i > 0) cout << " >> ";
+    }
+    cout << endl;
+    cout << "Dengan Jarak " << distance[endIdx] << " Meter" << endl;
+    cout << endl;
+}
+
+void showVertexEdge(graph G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Menampilkan nama-nama gedung dan jalur antar gedung di Graph G */
     adrGedung currentVertex = firstVertex(G);
     cout << "Daftar Gedung:" << endl;
     while (currentVertex != NULL) {
         cout << "- " << infoVertex(currentVertex) << endl;
         currentVertex = nextVertex(currentVertex);
     }
-}
 
-void showEdge(graph G) {
-    /* I.S. -
-        F.S. bobot jalur yang ada di Graph G dapat terlihat*/
-    adrGedung currentVertex = firstVertex(G);
+    cout << endl;
+    currentVertex = firstVertex(G);
     cout << "Daftar Jalur:" << endl;
     while (currentVertex != NULL) {
         adrJalur currentEdge = firstEdge(currentVertex);
         while (currentEdge != NULL) {
-            cout << infoVertex(currentVertex) << " -> " << destvertexID(currentEdge) << " (Weight: " << edgeWeight(currentEdge) << ")" << endl;
+            cout << infoVertex(currentVertex) << " >> "
+                 << destvertexID(currentEdge) << " (Jarak: "
+                 << edgeWeight(currentEdge) << " Meter)" << endl;
             currentEdge = nextEdge(currentEdge);
         }
         currentVertex = nextVertex(currentVertex);

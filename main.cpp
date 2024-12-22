@@ -82,11 +82,20 @@ int main() {
             }
             break;
         }
-        case 7:
-            showVertex(G);
+
+        case 7: {
+            string start, End, avoid;
+            cout << "Masukkan ID gedung yang ingin dihindari: ";
+            cin >> avoid;
+            cout << "Masukkan ID gedung awal: ";
+            cin >> start;
+            cout << "Masukkan ID gedung tujuan: ";
+            cin >> End;
+            alternativePath(G, start, End, avoid);
             break;
+        }
         case 8:
-            showEdge(G);
+            showVertexEdge(G);
             break;
         case 9:
             showGraph(G);
