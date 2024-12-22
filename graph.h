@@ -48,4 +48,6 @@ void buildGraph(graph &G);
 void showVertexEdge(graph G);
 void showGraph(graph G);
 void buildGraph(graph &G);
+void printVertexWithMostEdge(graph G);
+
 #endif // GRAPH_H_INCLUDED

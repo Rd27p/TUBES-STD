@@ -11,7 +11,8 @@ void menu() {
     cout << "7. Cari Jalur Alternatif" << endl;
     cout << "8. Lihat Gedung dan Jalur yang ada" << endl;
     cout << "9. Lihat Graph" << endl;
-    cout << "10. Keluar" << endl;
+    cout << "10. Lihat Gedung dengan Jalur Terbanyak" << endl;
+    cout << "11. Keluar" << endl;
     cout << "===========================================" << endl;
 }
 
@@ -521,4 +522,38 @@ void buildGraph(graph &G) {
     addEdge(G, "GKU3", "TUCH", 200);
     addEdge(G, "GKU3", "GSG", 350);
     addEdge(G, "TUCH", "TULT", 300);
+}
+
+void printVertexWithMostEdge(graph G){
+    /* I.S. Graph G terdefinisi
+        F.S. Menampilkan gedung yang memiliki jalur terbanyak */
+    if (firstVertex(G) == NULL){
+        cout << "Graph kosong." << endl;
+        return;
+    }
+
+    adrGedung currentVertex = firstVertex(G);
+    adrGedung vertexWithMostEdges = NULL;
+    int maxEdge = 0;
+
+    while (currentVertex != NULL) {
+        int jumlahEdge = 0;
+        adrJalur currentEdge = firstEdge(currentVertex);
+        while (currentEdge != NULL) {
+            jumlahEdge++;
+            currentEdge = nextEdge(currentEdge);
+        }
+
+        if (jumlahEdge > maxEdge) {
+            maxEdge = jumlahEdge;
+            vertexWithMostEdges = currentVertex;
+        }
+        currentVertex = nextVertex(currentVertex);
+    }
+
+    if (vertexWithMostEdges != NULL) {
+        cout << "Gedung dengan jumlah jalur terbanyak adalah: " << infoVertex(vertexWithMostEdges) << " dengan " << maxEdge << " jalur." << endl;
+    } else {
+        cout << "Tidak ada gedung dalam graph." << endl;
+    }
 }

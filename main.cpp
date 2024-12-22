@@ -101,6 +101,9 @@ int main() {
             showGraph(G);
             break;
         case 10:
+            printVertexWithMostEdge(G);
+            break;
+        case 11:
             cout << "Terima kasih! Program selesai." << endl;
             break;
         default:
