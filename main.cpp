@@ -70,20 +70,8 @@ int main() {
             }
             break;
         }
-        case 6: {
-            string start, end;
-            cout << "Masukkan ID gedung awal: ";
-            cin >> start;
-            cout << "Masukkan ID gedung tujuan: ";
-            cin >> end;
-            int longest = longestPath(G, start, end);
-            if (longest != -1) {
-                cout << "Dengan total jarak: " << longest << " Meter " << endl;
-            }
-            break;
-        }
 
-        case 7: {
+        case 6: {
             string start, End, avoid;
             cout << "Masukkan ID gedung yang ingin dihindari: ";
             cin >> avoid;
@@ -94,16 +82,16 @@ int main() {
             alternativePath(G, start, End, avoid);
             break;
         }
-        case 8:
+        case 7:
             showVertexEdge(G);
             break;
-        case 9:
+        case 8:
             showGraph(G);
             break;
-        case 10:
+        case 9:
             printVertexWithMostEdge(G);
             break;
-        case 11:
+        case 10:
             cout << "Terima kasih! Program selesai." << endl;
             break;
         default:

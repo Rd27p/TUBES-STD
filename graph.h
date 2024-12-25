@@ -42,7 +42,6 @@ adrJalur findEdge(graph G, string sourceVertexID, string destVertexID);
 void deleteVertex(graph &G, string vertexID);
 void deleteEdge(graph &G, string sourceVertexID, string destVertexID);
 int shortestPath(graph G, string startID, string endID);
-int longestPath(graph G, string startID, string endID);
 void alternativePath(graph G, string startID, string endID, string avoidID);
 void buildGraph(graph &G);
 void showVertexEdge(graph G);
