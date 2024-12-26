@@ -97,7 +97,7 @@ int main() {
         default:
             cout << "Pilihan tidak valid!" << endl;
         }
-    } while (choice != 11);
+    } while (choice != 10);
 
     return 0;
 }
